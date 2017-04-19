@@ -1,4 +1,4 @@
-import Html exposing (Html, div, text, program)
+import Html exposing (Html, text, program)
 import Keyboard
 import Blockio
 
@@ -26,4 +26,4 @@ update msg model =
         Blockio.main
 
 main =
-    program {view = view, update = update, subscriptions = subscriptions}
+    program {view = view, update = update, subscriptions = subscriptions, init = ( model, Cmd Msg )}
