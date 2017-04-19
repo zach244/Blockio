@@ -1,8 +1,8 @@
 import Html exposing (Html, div, text, program)
 import Keyboard
-Module Blockio
+import Blockio
 
-subscriptions : Model -> Sub Msg
+subscriptions : model -> Sub Msg
 
 subscriptions model =
   Sub.batch
@@ -12,18 +12,18 @@ subscriptions model =
 
 type Msg = KeyMsg Keyboard.KeyCode
 
-view : Model -> Html Msg
-view model =
-  div []
-    [ [ text "BLOCKIO"]
-    , div [] [text "press enter"]
-    , []
-    ]
+view : model -> Html Msg
+view model = text "Press any key to continue"
+--  div []
+--    [ [ text "BLOCKIO"]
+--    , div [] [text "press enter"]
+--    , []
+--    ]
 
 update msg model =
   case msg of
      KeyMsg code ->
-      Blockio
+        Blockio.main
 
 main =
-    program {view = view, update = update}
+    program {view = view, update = update, subscriptions = subscriptions}
