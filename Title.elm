@@ -26,4 +26,4 @@ update msg model =
         Blockio.main
 
 main =
-    program {view = view, update = update, subscriptions = subscriptions, init = ( model, Cmd Msg )}
+    program {view = view, update = update, subscriptions = subscriptions}
