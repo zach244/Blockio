@@ -17,19 +17,23 @@ var _user$project$Blockio$view = function (model) {
 		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$svg$Svg$circle,
+				_elm_lang$svg$Svg$rect,
 				{
 					ctor: '::',
-					_0: _elm_lang$svg$Svg_Attributes$cx(
-						_elm_lang$core$Basics$toString(model.x + 16)),
+					_0: _elm_lang$svg$Svg_Attributes$x(
+						_elm_lang$core$Basics$toString(model.x)),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$cy(
-							_elm_lang$core$Basics$toString(75 - model.y)),
+						_0: _elm_lang$svg$Svg_Attributes$y(
+							_elm_lang$core$Basics$toString(model.y + 40)),
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$r('16'),
-							_1: {ctor: '[]'}
+							_0: _elm_lang$svg$Svg_Attributes$width('50'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$height('50'),
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				},
@@ -84,11 +88,17 @@ var _user$project$Blockio$stop = F2(
 			model,
 			{blockioAcceleration: 0}) : model;
 	});
-var _user$project$Blockio$run = F2(
-	function (speed, model) {
+var _user$project$Blockio$fastFall = F2(
+	function (moveSpeed, model) {
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{blockioAcceleration: speed});
+			{blockioAcceleration: moveSpeed});
+	});
+var _user$project$Blockio$run = F2(
+	function (moveSpeed, model) {
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{blockioAcceleration: moveSpeed});
 	});
 var _user$project$Blockio$jumpSpeed = 5;
 var _user$project$Blockio$jump = function (model) {
@@ -96,7 +106,7 @@ var _user$project$Blockio$jump = function (model) {
 		model,
 		{vy: _user$project$Blockio$jumpSpeed}) : model;
 };
-var _user$project$Blockio$gravityS = 0.5;
+var _user$project$Blockio$gravityS = 0.2;
 var _user$project$Blockio$gravity = function (model) {
 	return _elm_lang$core$Native_Utils.update(
 		model,
@@ -112,20 +122,9 @@ var _user$project$Blockio$key = F2(
 	function (msg, model) {
 		return function () {
 			var _p0 = msg;
-			_v0_5:
+			_v0_6:
 			do {
-				if (_p0.ctor === 'KeyDown') {
-					switch (_p0._0) {
-						case 87:
-							return _user$project$Blockio$jump;
-						case 65:
-							return _user$project$Blockio$run(0 - _user$project$Blockio$runSpeed);
-						case 68:
-							return _user$project$Blockio$run(_user$project$Blockio$runSpeed);
-						default:
-							break _v0_5;
-					}
-				} else {
+				if (_p0.ctor === 'KeyUp') {
 					switch (_p0._0) {
 						case 65:
 							return _user$project$Blockio$stop(
@@ -140,7 +139,20 @@ var _user$project$Blockio$key = F2(
 										return _elm_lang$core$Native_Utils.cmp(x, y) > 0;
 									}));
 						default:
-							break _v0_5;
+							break _v0_6;
+					}
+				} else {
+					switch (_p0._0) {
+						case 87:
+							return _user$project$Blockio$jump;
+						case 65:
+							return _user$project$Blockio$run(0 - _user$project$Blockio$runSpeed);
+						case 68:
+							return _user$project$Blockio$run(_user$project$Blockio$runSpeed);
+						case 83:
+							return _user$project$Blockio$fastFall(3);
+						default:
+							break _v0_6;
 					}
 				}
 			} while(false);
