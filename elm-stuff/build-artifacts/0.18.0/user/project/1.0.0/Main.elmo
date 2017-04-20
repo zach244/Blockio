@@ -1,4 +1,4 @@
-var _user$project$Blockio$view = function (model) {
+var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$svg$Svg$svg,
 		{
@@ -68,47 +68,53 @@ var _user$project$Blockio$view = function (model) {
 			}
 		});
 };
-var _user$project$Blockio$floor = function (model) {
+var _user$project$Main$floor = function (model) {
 	return (_elm_lang$core$Native_Utils.cmp(model.y, 0) < 0) ? _elm_lang$core$Native_Utils.update(
 		model,
 		{y: 0, vy: 0}) : model;
 };
-var _user$project$Blockio$motion = function (model) {
+var _user$project$Main$motion = function (model) {
 	return _elm_lang$core$Native_Utils.update(
 		model,
 		{x: model.x + model.vx, y: model.y + model.vy});
 };
-var _user$project$Blockio$stop = F2(
-	function (condition, model) {
-		return A2(condition, model.blockioAcceleration, 0) ? _elm_lang$core$Native_Utils.update(
+var _user$project$Main$traction = function (model) {
+	return _elm_lang$core$Native_Utils.eq(model.y, 0) ? _elm_lang$core$Native_Utils.update(
+		model,
+		{vx: model.groundAcceleration}) : model;
+};
+var _user$project$Main$stop = F2(
+	function (compare, model) {
+		return A2(compare, model.groundAcceleration, 0) ? _elm_lang$core$Native_Utils.update(
 			model,
-			{blockioAcceleration: 0}) : model;
+			{groundAcceleration: 0}) : model;
 	});
-var _user$project$Blockio$run = F2(
-	function (speed, model) {
+var _user$project$Main$accelerateTo = F2(
+	function (velocity, model) {
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{blockioAcceleration: speed});
+			{groundAcceleration: velocity});
 	});
-var _user$project$Blockio$jumpSpeed = 5;
-var _user$project$Blockio$jump = function (model) {
+var _user$project$Main$jumpVelocity = 6;
+var _user$project$Main$jump = function (model) {
 	return _elm_lang$core$Native_Utils.eq(model.vy, 0) ? _elm_lang$core$Native_Utils.update(
 		model,
-		{vy: _user$project$Blockio$jumpSpeed}) : model;
+		{vy: _user$project$Main$jumpVelocity}) : model;
 };
-var _user$project$Blockio$gravityS = 0.5;
-var _user$project$Blockio$gravity = function (model) {
+var _user$project$Main$gravityAcceleration = 0.3;
+var _user$project$Main$gravity = function (model) {
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{vy: model.vy - _user$project$Blockio$gravityS});
+		{vy: model.vy - _user$project$Main$gravityAcceleration});
 };
-var _user$project$Blockio$tick = function (model) {
-	return _user$project$Blockio$floor(
-		_user$project$Blockio$motion(
-			_user$project$Blockio$gravity(model)));
+var _user$project$Main$tick = function (model) {
+	return _user$project$Main$floor(
+		_user$project$Main$motion(
+			_user$project$Main$gravity(
+				_user$project$Main$traction(model))));
 };
-var _user$project$Blockio$runSpeed = 4;
-var _user$project$Blockio$key = F2(
+var _user$project$Main$horizontalVelocity = 3;
+var _user$project$Main$key = F2(
 	function (msg, model) {
 		return function () {
 			var _p0 = msg;
@@ -116,25 +122,25 @@ var _user$project$Blockio$key = F2(
 			do {
 				if (_p0.ctor === 'KeyDown') {
 					switch (_p0._0) {
-						case 87:
-							return _user$project$Blockio$jump;
-						case 65:
-							return _user$project$Blockio$run(0 - _user$project$Blockio$runSpeed);
-						case 68:
-							return _user$project$Blockio$run(_user$project$Blockio$runSpeed);
+						case 38:
+							return _user$project$Main$jump;
+						case 37:
+							return _user$project$Main$accelerateTo(0 - _user$project$Main$horizontalVelocity);
+						case 39:
+							return _user$project$Main$accelerateTo(_user$project$Main$horizontalVelocity);
 						default:
 							break _v0_5;
 					}
 				} else {
 					switch (_p0._0) {
-						case 65:
-							return _user$project$Blockio$stop(
+						case 37:
+							return _user$project$Main$stop(
 								F2(
 									function (x, y) {
 										return _elm_lang$core$Native_Utils.cmp(x, y) < 0;
 									}));
-						case 68:
-							return _user$project$Blockio$stop(
+						case 39:
+							return _user$project$Main$stop(
 								F2(
 									function (x, y) {
 										return _elm_lang$core$Native_Utils.cmp(x, y) > 0;
@@ -147,64 +153,64 @@ var _user$project$Blockio$key = F2(
 			return _elm_lang$core$Basics$identity;
 		}()(model);
 	});
-var _user$project$Blockio$update = F2(
+var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p1 = msg;
-		if (_p1.ctor === 'KeyMsg') {
-			return A2(_user$project$Blockio$key, _p1._0, model);
+		if (_p1.ctor === 'Tick') {
+			return _user$project$Main$tick(model);
 		} else {
-			return _user$project$Blockio$tick(model);
+			return A2(_user$project$Main$key, _p1._0, model);
 		}
 	});
-var _user$project$Blockio$updateWithCommand = F2(
+var _user$project$Main$updateWithCommand = F2(
 	function (msg, model) {
 		return {
 			ctor: '_Tuple2',
-			_0: A2(_user$project$Blockio$update, msg, model),
+			_0: A2(_user$project$Main$update, msg, model),
 			_1: _elm_lang$core$Platform_Cmd$none
 		};
 	});
-var _user$project$Blockio$initialModel = {x: 0, vx: 0, y: 0, vy: 0, blockioAcceleration: 0};
-var _user$project$Blockio$Tick = function (a) {
+var _user$project$Main$initialModel = {x: 0, vx: 0, y: 0, vy: 0, groundAcceleration: 0};
+var _user$project$Main$Tick = function (a) {
 	return {ctor: 'Tick', _0: a};
 };
-var _user$project$Blockio$KeyMsg = function (a) {
+var _user$project$Main$KeyMsg = function (a) {
 	return {ctor: 'KeyMsg', _0: a};
 };
-var _user$project$Blockio$KeyDown = function (a) {
+var _user$project$Main$KeyDown = function (a) {
 	return {ctor: 'KeyDown', _0: a};
 };
-var _user$project$Blockio$KeyUp = function (a) {
+var _user$project$Main$KeyUp = function (a) {
 	return {ctor: 'KeyUp', _0: a};
 };
-var _user$project$Blockio$subscriptions = function (model) {
+var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$batch(
 		{
 			ctor: '::',
 			_0: _elm_lang$keyboard$Keyboard$downs(
 				function (_p2) {
-					return _user$project$Blockio$KeyMsg(
-						_user$project$Blockio$KeyDown(_p2));
+					return _user$project$Main$KeyMsg(
+						_user$project$Main$KeyDown(_p2));
 				}),
 			_1: {
 				ctor: '::',
 				_0: _elm_lang$keyboard$Keyboard$ups(
 					function (_p3) {
-						return _user$project$Blockio$KeyMsg(
-							_user$project$Blockio$KeyUp(_p3));
+						return _user$project$Main$KeyMsg(
+							_user$project$Main$KeyUp(_p3));
 					}),
 				_1: {
 					ctor: '::',
-					_0: _elm_lang$animation_frame$AnimationFrame$diffs(_user$project$Blockio$Tick),
+					_0: _elm_lang$animation_frame$AnimationFrame$diffs(_user$project$Main$Tick),
 					_1: {ctor: '[]'}
 				}
 			}
 		});
 };
-var _user$project$Blockio$main = _elm_lang$html$Html$program(
+var _user$project$Main$main = _elm_lang$html$Html$program(
 	{
-		init: {ctor: '_Tuple2', _0: _user$project$Blockio$initialModel, _1: _elm_lang$core$Platform_Cmd$none},
-		view: _user$project$Blockio$view,
-		subscriptions: _user$project$Blockio$subscriptions,
-		update: _user$project$Blockio$updateWithCommand
+		init: {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none},
+		view: _user$project$Main$view,
+		subscriptions: _user$project$Main$subscriptions,
+		update: _user$project$Main$updateWithCommand
 	})();
