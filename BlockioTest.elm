@@ -1,11 +1,16 @@
 module Blockio exposing(..)
 import Html exposing (program)
-import Keyboard
+import Keyboard exposing (..)
 import AnimationFrame
 import Time exposing (..)
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
+import Collage exposing (..)
 import Collision2D
+import Color exposing (..)
+import Element exposing(..)
+import Text exposing(..)
+-- import Window
+
+
 
 
 
@@ -19,6 +24,12 @@ main = program
 
 type Msg = KeyMsg KeyTypes | Tick Time
 type KeyTypes = KeyUp Int | KeyDown Int
+type alias Spike =
+  {
+  base : Int
+  , ht : Int
+  , x : Int
+  }
 
 initialModel = {x = 0, vx = 0,
                 y = 0, vy = 0,
@@ -110,25 +121,14 @@ floor model =
        model
 --kill function should be very similar to floor and added to tick
 view model =
-
-
-    svg
-      -- List of attributes of SVG node
-      [ width "100%", height "100%" -- Scale up to take the full page
-      , viewBox "0 0 500 100" -- Numbers used in the drawing are relative to these viewBox dimensions. 0 in the y dimension is the top of the drawing.
-      ]
-      -- List of children
-      [ rect [
-          x (toString model.x)
-          , y (toString (model.y + 40))
-          , width "50"
-          , height "50"
-      ] []
-      , line [ x1 "0", y1 "95"
-             , x2 "500", y2 "95"
-             , strokeWidth "8"
-             , stroke "black" ] []]
-  --      rect [x "0",
-    --          y "0",
-      --        width "25",
-        --      height "100", animateColor (List Svg.Attribute msg) (List Svg.Svg msg)] [] ]
+    toHtml(
+      collage 1000 500 [(
+        (moveY -225 (moveX model.x (filled (black ) (rect 25 25))))),
+         (moveY -250 (filled (black ) (rect 1000 20))),
+        -- line is created for the floor
+         (moveY 0 (moveX -model.x (filled (black ) (ngon 3 15)))),
+        -- alien is created and only moves opposite the tank for now
+         ( toForm (centered (fromString ("Press left/right arrows to control tank and the up arrow to shoot"))))
+        -- adds text instructions for now
+        ]
+        )
