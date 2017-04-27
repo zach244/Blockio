@@ -2,16 +2,16 @@ var _user$project$Blockio$view = function (model) {
 	return _evancz$elm_graphics$Element$toHtml(
 		A3(
 			_evancz$elm_graphics$Collage$collage,
-			1000,
+			2000,
 			500,
 			{
 				ctor: '::',
 				_0: A2(
 					_evancz$elm_graphics$Collage$moveY,
-					model.y - 230,
+					model.blockio.y - 230,
 					A2(
 						_evancz$elm_graphics$Collage$moveX,
-						model.x - 445,
+						model.blockio.x - 445,
 						A2(
 							_evancz$elm_graphics$Collage$filled,
 							_elm_lang$core$Color$black,
@@ -24,7 +24,7 @@ var _user$project$Blockio$view = function (model) {
 						A2(
 							_evancz$elm_graphics$Collage$filled,
 							_elm_lang$core$Color$black,
-							A2(_evancz$elm_graphics$Collage$rect, 1000, 20))),
+							A2(_evancz$elm_graphics$Collage$rect, 2000, 20))),
 					_1: {
 						ctor: '::',
 						_0: A2(
@@ -99,66 +99,178 @@ var _user$project$Blockio$view = function (model) {
 				}
 			}));
 };
+var _user$project$Blockio$spikeAirCollision = function (model) {
+	if (_elm_lang$core$Native_Utils.eq(model.blockio.x - 445, 5) && _elm_lang$core$Native_Utils.eq(model.blockio.y - 255, 5)) {
+		var b = model.blockio;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{x: 0, y: 0, lives: model.blockio.lives - 1})
+			});
+	} else {
+		return model;
+	}
+};
+var _user$project$Blockio$spikeGroundCollision = function (model) {
+	if (_elm_lang$core$Native_Utils.eq(model.blockio.x - 445, 5) && _elm_lang$core$Native_Utils.eq(model.blockio.y - 270, 10)) {
+		var b = model.blockio;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{x: 0, y: 0, lives: model.blockio.lives - 1})
+			});
+	} else {
+		return model;
+	}
+};
 var _user$project$Blockio$adjustX = function (model) {
+	var b = model.blockio;
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{x: model.x - 445});
+		{
+			blockio: _elm_lang$core$Native_Utils.update(
+				b,
+				{x: model.blockio.x - 445})
+		});
 };
 var _user$project$Blockio$adjustY = function (model) {
+	var b = model.blockio;
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{y: model.y - 255});
+		{
+			blockio: _elm_lang$core$Native_Utils.update(
+				b,
+				{y: model.blockio.y - 255})
+		});
+};
+var _user$project$Blockio$motionY = function (model) {
+	var b = model.blockio;
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			blockio: _elm_lang$core$Native_Utils.update(
+				b,
+				{y: model.blockio.y + model.blockio.vy})
+		});
+};
+var _user$project$Blockio$motionX = function (model) {
+	var b = model.blockio;
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			blockio: _elm_lang$core$Native_Utils.update(
+				b,
+				{x: model.blockio.x + model.blockio.vx})
+		});
 };
 var _user$project$Blockio$floor = function (model) {
-	return (_elm_lang$core$Native_Utils.cmp(model.y, 0) < 0) ? _elm_lang$core$Native_Utils.update(
-		model,
-		{y: 0, vy: 0}) : model;
+	if (_elm_lang$core$Native_Utils.cmp(model.blockio.y, 0) < 0) {
+		var b = model.blockio;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{y: 0, vy: 0})
+			});
+	} else {
+		return model;
+	}
 };
 var _user$project$Blockio$acceleration = function (model) {
+	var b = model.blockio;
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{vx: model.blockioAcceleration});
+		{
+			blockio: _elm_lang$core$Native_Utils.update(
+				b,
+				{vx: model.blockio.blockioAcceleration})
+		});
 };
 var _user$project$Blockio$motion = function (model) {
+	var b = model.blockio;
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{x: model.x + model.vx, y: model.y + model.vy});
+		{
+			blockio: _elm_lang$core$Native_Utils.update(
+				b,
+				{x: model.blockio.x + model.blockio.vx, y: model.blockio.y + model.blockio.vy})
+		});
 };
 var _user$project$Blockio$stop = F2(
 	function (condition, model) {
-		return A2(condition, model.blockioAcceleration, 0) ? _elm_lang$core$Native_Utils.update(
-			model,
-			{blockioAcceleration: 0}) : model;
+		if (A2(condition, model.blockio.blockioAcceleration, 0)) {
+			var b = model.blockio;
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					blockio: _elm_lang$core$Native_Utils.update(
+						b,
+						{blockioAcceleration: 0})
+				});
+		} else {
+			return model;
+		}
 	});
 var _user$project$Blockio$fastFall = F2(
 	function (moveSpeed, model) {
+		var b = model.blockio;
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{vy: model.vy - moveSpeed});
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{vy: model.blockio.vy - moveSpeed})
+			});
 	});
 var _user$project$Blockio$run = F2(
 	function (moveSpeed, model) {
+		var b = model.blockio;
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{blockioAcceleration: moveSpeed});
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{blockioAcceleration: moveSpeed})
+			});
 	});
 var _user$project$Blockio$jumpSpeed = 5;
 var _user$project$Blockio$jump = function (model) {
-	return _elm_lang$core$Native_Utils.eq(model.vy, 0) ? _elm_lang$core$Native_Utils.update(
-		model,
-		{vy: _user$project$Blockio$jumpSpeed}) : model;
+	if (_elm_lang$core$Native_Utils.eq(model.blockio.vy, 0)) {
+		var b = model.blockio;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{vy: _user$project$Blockio$jumpSpeed})
+			});
+	} else {
+		return model;
+	}
 };
 var _user$project$Blockio$gravityS = 0.2;
 var _user$project$Blockio$gravity = function (model) {
+	var b = model.blockio;
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{vy: model.vy - _user$project$Blockio$gravityS});
+		{
+			blockio: _elm_lang$core$Native_Utils.update(
+				b,
+				{vy: model.blockio.vy - _user$project$Blockio$gravityS})
+		});
 };
 var _user$project$Blockio$tick = function (model) {
 	return _user$project$Blockio$floor(
 		_user$project$Blockio$motion(
 			_user$project$Blockio$gravity(
-				_user$project$Blockio$acceleration(model))));
+				_user$project$Blockio$acceleration(
+					_user$project$Blockio$spikeGroundCollision(
+						_user$project$Blockio$spikeAirCollision(model))))));
 };
 var _user$project$Blockio$runSpeed = 4;
 var _user$project$Blockio$key = F2(
@@ -219,7 +331,10 @@ var _user$project$Blockio$updateWithCommand = F2(
 			_1: _elm_lang$core$Platform_Cmd$none
 		};
 	});
-var _user$project$Blockio$initialModel = {x: 0, vx: 0, y: 0, vy: 0, blockioAcceleration: 0};
+var _user$project$Blockio$initialDoor = {};
+var _user$project$Blockio$initialKey = {};
+var _user$project$Blockio$initialBlockio = {x: 0, vx: 0, y: 0, vy: 0, blockioAcceleration: 0, hasKey: false, lives: 3};
+var _user$project$Blockio$initialModel = {x: 0, y: 0, blockio: _user$project$Blockio$initialBlockio, key: _user$project$Blockio$initialKey, door: _user$project$Blockio$initialDoor};
 var _user$project$Blockio$Spike = F3(
 	function (a, b, c) {
 		return {base: a, ht: b, x: c};
