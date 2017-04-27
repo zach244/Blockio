@@ -103,12 +103,12 @@ stop condition model =
 
 tick model =
     model
-        |>kill
+        -- |>kill
         |>acceleration
         |> gravity
         |> motion
         |> floor
-alienHitBox model =
+-- alienHitBox model =
 
 gravity model =
   {model | vy = model.vy - gravityS}
@@ -125,9 +125,9 @@ floor model =
        {model | y = 0, vy = 0}
     else
        model
-kill model =
-  if (axisAlignedBoundingBox r1 r2) then
-    {alien | alive = false}
+-- kill model =
+--   if (axisAlignedBoundingBox r1 r2) then
+--     {alien | alive = false}
 --kill function should be very similar to floor and added to tick
 adjustY model =
   {model | y = (model.y - 255)}
