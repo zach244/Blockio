@@ -88,20 +88,24 @@ key msg model =
         _ -> identity
 
 run moveSpeed model =
-  {model | blockio.blockioAcceleration = moveSpeed}
+  let modelBlockio = blockio.blockioAcceleration in
+    {model | modelBlockio = moveSpeed}
 
 fastFall moveSpeed model =
-  {model | blockio.vy = (model.blockio.vy - moveSpeed)}
+  let modelBlockio = blockio.vy in
+    {model | modelBlockio = (model.blockio.vy - moveSpeed)}
 
 jump model =
   if model.blockio.vy == 0 then
-    {model | blockio.vy = jumpSpeed}
+    let modelBlockio = blockio.vy in
+      {model | modelBlockio = jumpSpeed}
   else
     model
 
 stop condition model =
   if condition model.blockio.blockioAcceleration 0 then
-    {model | blockio.blockioAcceleration = 0}
+    let modelBlockio = blockio.blockioAcceleration in
+      {model | modelBlockio = 0}
   else
     model
 
@@ -122,7 +126,8 @@ tick model =
 -- alienHitBox model =
 
 gravity model =
-  {model | blockio.vy = model.blockio.vy - gravityS}
+  let modelBlockio = blockio.vy in
+  {model | modelBlockio = model.blockio.vy - gravityS}
 
 motion model =
   {model | blockio.x = model.blockio.x + model.blockio.vx,
@@ -136,12 +141,22 @@ floor model =
        {model | blockio.y = 0, blockio.vy = 0}
     else
        model
+
+motionX model =
+  let modelBlockio = blockio.x in
+    {model | modelBlockio = model.blockio.x + model.blockio.vx}
+
+motionY model =
+  let modelBlockio = blockio.blockioAcceleration in
+    {model | blockio.x = model.blockio.x + model.blockio.vx
+
 -- kill model =
 --   if (axisAlignedBoundingBox r1 r2) then
 --     {alien | alive = false}
 --kill function should be very similar to floor and added to tick
 adjustY model =
-  {model | blockio.y = (model.blockio.y - 255)}
+  let b = model.blockio in
+  {model | blockio = {b | y = (model.blockio.y - 255)}
 
 adjustX model =
   {model | blockio.x = (model.blockio.x - 445)}
