@@ -157,7 +157,8 @@ var _user$project$Blockio$gravity = function (model) {
 var _user$project$Blockio$tick = function (model) {
 	return _user$project$Blockio$floor(
 		_user$project$Blockio$motion(
-			_user$project$Blockio$gravity(model)));
+			_user$project$Blockio$gravity(
+				_user$project$Blockio$acceleration(model))));
 };
 var _user$project$Blockio$runSpeed = 4;
 var _user$project$Blockio$key = F2(
