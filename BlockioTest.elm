@@ -31,10 +31,21 @@ type alias Spike =
   , x : Int
   }
 
-initialModel = {x = 0, vx = 0,
+initialModel = { x = 0,
+                y = 0,
+                blockio = initialBlockio,
+                key = initialKey,
+                door = initialDoor
+              }
+initialBlockio = {
+                x = 0, vx = 0,
                 y = 0, vy = 0,
-                blockioAcceleration = 0}
-
+                blockioAcceleration = 0,
+                hasKey = False,
+                lives = 3
+                }
+initialKey = {}
+initialDoor = {}
 --door = (Svg.rect [x "0", y "0", width "25", height "25"] [])
 
 subscriptions model =
@@ -77,20 +88,20 @@ key msg model =
         _ -> identity
 
 run moveSpeed model =
-  {model | blockioAcceleration = moveSpeed}
+  {model | blockio.blockioAcceleration = moveSpeed}
 
 fastFall moveSpeed model =
-  {model | vy = (model.vy - moveSpeed)}
+  {model | blockio.vy = (model.blockio.vy - moveSpeed)}
 
 jump model =
-  if model.vy == 0 then
-    {model | vy = jumpSpeed}
+  if model.blockio.vy == 0 then
+    {model | blockio.vy = jumpSpeed}
   else
     model
 
 stop condition model =
-  if condition model.blockioAcceleration 0 then
-    {model | blockioAcceleration = 0}
+  if condition model.blockio.blockioAcceleration 0 then
+    {model | blockio.blockioAcceleration = 0}
   else
     model
 
@@ -111,18 +122,18 @@ tick model =
 -- alienHitBox model =
 
 gravity model =
-  {model | vy = model.vy - gravityS}
+  {model | blockio.vy = model.blockio.vy - gravityS}
 
 motion model =
-  {model | x = model.x + model.vx,
-          y = model.y + model.vy
+  {model | blockio.x = model.blockio.x + model.blockio.vx,
+          blockio.y = model.blockio.y + model.blockio.vy
   }
 acceleration model =
-  {model | vx = model.blockioAcceleration}
+  {model | blockio.vx = model.blockio.blockioAcceleration}
 
 floor model =
-    if model.y < 0 then
-       {model | y = 0, vy = 0}
+    if model.blockio.y < 0 then
+       {model | blockio.y = 0, blockio.vy = 0}
     else
        model
 -- kill model =
@@ -130,14 +141,14 @@ floor model =
 --     {alien | alive = false}
 --kill function should be very similar to floor and added to tick
 adjustY model =
-  {model | y = (model.y - 255)}
+  {model | blockio.y = (model.blockio.y - 255)}
 
 adjustX model =
-  {model | x = (model.x - 445)}
+  {model | blockio.x = (model.blockio.x - 445)}
 view model =
     toHtml(
       collage 1000 500 [(
-        (moveY (model.y - 230) (moveX (model.x - 445) (filled (black ) (rect 25 25))))),
+        (moveY (model.blockio.y - 230) (moveX (model.blockio.x - 445) (filled (black ) (rect 25 25))))),
          (moveY -250 (filled (black ) (rect 1000 20))),
         -- line is created for the floor
          (rotate (degrees 330)(moveY -245 (moveX 0 (filled (black ) (ngon 3 15))))),
