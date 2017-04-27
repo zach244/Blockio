@@ -8,10 +8,10 @@ var _user$project$Blockio$view = function (model) {
 				ctor: '::',
 				_0: A2(
 					_evancz$elm_graphics$Collage$moveY,
-					-225,
+					model.y - 230,
 					A2(
 						_evancz$elm_graphics$Collage$moveX,
-						model.x,
+						model.x - 445,
 						A2(
 							_evancz$elm_graphics$Collage$filled,
 							_elm_lang$core$Color$black,
@@ -28,30 +28,96 @@ var _user$project$Blockio$view = function (model) {
 					_1: {
 						ctor: '::',
 						_0: A2(
-							_evancz$elm_graphics$Collage$moveY,
-							0,
+							_evancz$elm_graphics$Collage$rotate,
+							_elm_lang$core$Basics$degrees(330),
 							A2(
-								_evancz$elm_graphics$Collage$moveX,
-								0 - model.x,
+								_evancz$elm_graphics$Collage$moveY,
+								-245,
 								A2(
-									_evancz$elm_graphics$Collage$filled,
-									_elm_lang$core$Color$black,
-									A2(_evancz$elm_graphics$Collage$ngon, 3, 15)))),
+									_evancz$elm_graphics$Collage$moveX,
+									0,
+									A2(
+										_evancz$elm_graphics$Collage$filled,
+										_elm_lang$core$Color$black,
+										A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
 						_1: {
 							ctor: '::',
-							_0: _evancz$elm_graphics$Collage$toForm(
-								_evancz$elm_graphics$Element$centered(
-									_evancz$elm_graphics$Text$fromString('Press left/right arrows to control tank and the up arrow to shoot'))),
-							_1: {ctor: '[]'}
+							_0: A2(
+								_evancz$elm_graphics$Collage$rotate,
+								_elm_lang$core$Basics$degrees(330),
+								A2(
+									_evancz$elm_graphics$Collage$moveY,
+									-245,
+									A2(
+										_evancz$elm_graphics$Collage$moveX,
+										30,
+										A2(
+											_evancz$elm_graphics$Collage$filled,
+											_elm_lang$core$Color$black,
+											A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_evancz$elm_graphics$Collage$rotate,
+									_elm_lang$core$Basics$degrees(330),
+									A2(
+										_evancz$elm_graphics$Collage$moveY,
+										-245,
+										A2(
+											_evancz$elm_graphics$Collage$moveX,
+											60,
+											A2(
+												_evancz$elm_graphics$Collage$filled,
+												_elm_lang$core$Color$black,
+												A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_evancz$elm_graphics$Collage$rotate,
+										_elm_lang$core$Basics$degrees(330),
+										A2(
+											_evancz$elm_graphics$Collage$moveY,
+											-245,
+											A2(
+												_evancz$elm_graphics$Collage$moveX,
+												90,
+												A2(
+													_evancz$elm_graphics$Collage$filled,
+													_elm_lang$core$Color$black,
+													A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+									_1: {
+										ctor: '::',
+										_0: _evancz$elm_graphics$Collage$toForm(
+											_evancz$elm_graphics$Element$centered(
+												_evancz$elm_graphics$Text$fromString('Press W,A,S,D to control Blockio'))),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
 						}
 					}
 				}
 			}));
 };
+var _user$project$Blockio$adjustX = function (model) {
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{x: model.x - 445});
+};
+var _user$project$Blockio$adjustY = function (model) {
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{y: model.y - 255});
+};
 var _user$project$Blockio$floor = function (model) {
 	return (_elm_lang$core$Native_Utils.cmp(model.y, 0) < 0) ? _elm_lang$core$Native_Utils.update(
 		model,
 		{y: 0, vy: 0}) : model;
+};
+var _user$project$Blockio$acceleration = function (model) {
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{vx: model.blockioAcceleration});
 };
 var _user$project$Blockio$motion = function (model) {
 	return _elm_lang$core$Native_Utils.update(
@@ -68,7 +134,7 @@ var _user$project$Blockio$fastFall = F2(
 	function (moveSpeed, model) {
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{blockioAcceleration: moveSpeed});
+			{vy: model.vy - moveSpeed});
 	});
 var _user$project$Blockio$run = F2(
 	function (moveSpeed, model) {

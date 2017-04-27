@@ -76,9 +76,11 @@ stop condition model =
 
 tick model =
     model
+        -- |> collision
         |> gravity
         |> motion
         |> floor
+-- collision model =
 
 gravity model =
   {model | vy = model.vy - gravityS}

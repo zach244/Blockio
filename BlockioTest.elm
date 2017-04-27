@@ -72,6 +72,7 @@ key msg model =
 
         --S key
         KeyDown 83 -> fastFall 3
+        -- KeyUp 83 ->
 
         _ -> identity
 
@@ -79,7 +80,7 @@ run moveSpeed model =
   {model | blockioAcceleration = moveSpeed}
 
 fastFall moveSpeed model =
-  {model | blockioAcceleration = moveSpeed}
+  {model | vy = (model.vy - moveSpeed)}
 
 jump model =
   if model.vy == 0 then
@@ -113,22 +114,32 @@ motion model =
   {model | x = model.x + model.vx,
           y = model.y + model.vy
   }
-
+acceleration model =
+  {model | vx = model.blockioAcceleration}
+  
 floor model =
     if model.y < 0 then
        {model | y = 0, vy = 0}
     else
        model
 --kill function should be very similar to floor and added to tick
+adjustY model =
+  {model | y = (model.y - 255)}
+
+adjustX model =
+  {model | x = (model.x - 445)}
 view model =
     toHtml(
       collage 1000 500 [(
-        (moveY -225 (moveX model.x (filled (black ) (rect 25 25))))),
+        (moveY (model.y - 230) (moveX (model.x - 445) (filled (black ) (rect 25 25))))),
          (moveY -250 (filled (black ) (rect 1000 20))),
         -- line is created for the floor
-         (moveY 0 (moveX -model.x (filled (black ) (ngon 3 15)))),
+         (rotate (degrees 330)(moveY -245 (moveX 0 (filled (black ) (ngon 3 15))))),
+         (rotate (degrees 330)(moveY -245 (moveX 30 (filled (black ) (ngon 3 15))))),
+         (rotate (degrees 330)(moveY -245 (moveX 60 (filled (black ) (ngon 3 15))))),
+         (rotate (degrees 330)(moveY -245 (moveX 90 (filled (black ) (ngon 3 15))))),
         -- alien is created and only moves opposite the tank for now
-         ( toForm (centered (fromString ("Press left/right arrows to control tank and the up arrow to shoot"))))
+         ( toForm (centered (fromString ("Press W,A,S,D to control Blockio"))))
         -- adds text instructions for now
         ]
         )
