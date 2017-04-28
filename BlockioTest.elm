@@ -170,7 +170,29 @@ adjustX model =
   {model | blockio = { b | x = (model.blockio.x - 445)}}
 
 spikeGroundCollision model =
+  -- spike 3
   if (model.blockio.x) == 500 && (model.blockio.y) == 0 then
+    let b = model.blockio in
+      {model | blockio = { b | x = 0,
+                              y = 0,
+                              lives = (model.blockio.lives - 1)}}
+
+
+            if (400 <= model.blockio.x >= 500) && ()
+  else if (model.blockio.x) == 485 && (model.blockio.y) == 0 then
+    let b = model.blockio in
+      {model | blockio = { b | x = 0,
+                              y = 0,
+                              lives = (model.blockio.lives - 1)}}
+
+  -- spike 2
+  else if (model.blockio.x) == 450 && (model.blockio.y) == 0 then
+    let b = model.blockio in
+      {model | blockio = { b | x = 0,
+                              y = 0,
+                              lives = (model.blockio.lives - 1)}}
+    -- spike 1
+  else if (model.blockio.x) == 435 && (model.blockio.y) == 0 then
     let b = model.blockio in
       {model | blockio = { b | x = 0,
                               y = 0,
@@ -188,20 +210,23 @@ spikeAirCollision model =
   else model
 -- gameOver model =
 --   if (model.blockio.lives) == 0 then
---     toHtml(
---       collage 1000 500 [(
---         (toForm (centered (fromString ("GameOver"))))
---       )]
---     )
+--     {program | view = gameOverView}
 --   else
---     model
-
+--     program
+--
+-- gameOverView model =
+--   toHtml(
+--     collage 1000 500 [(
+--       (toForm (centered (fromString ("GameOver"))))
+--     )]
+--   )
 view model =
     toHtml(
       collage 2000 500 [(
         (moveY (model.blockio.y - 230) (moveX (model.blockio.x - 445) (filled (black ) (rect 25 25))))),
          (moveY -250 (filled (black ) (rect 2000 20))),
         -- line is created for the floor
+        -- (moveY -230 (moveX -445) )
          (rotate (degrees 330)(moveY -245 (moveX 0 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX 30 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX 60 (filled (black ) (ngon 3 15))))),

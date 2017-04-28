@@ -124,7 +124,40 @@ var _user$project$Blockio$spikeGroundCollision = function (model) {
 					{x: 0, y: 0, lives: model.blockio.lives - 1})
 			});
 	} else {
-		return model;
+		if (_elm_lang$core$Native_Utils.eq(model.blockio.x, 485) && _elm_lang$core$Native_Utils.eq(model.blockio.y, 0)) {
+			var b = model.blockio;
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					blockio: _elm_lang$core$Native_Utils.update(
+						b,
+						{x: 0, y: 0, lives: model.blockio.lives - 1})
+				});
+		} else {
+			if (_elm_lang$core$Native_Utils.eq(model.blockio.x, 450) && _elm_lang$core$Native_Utils.eq(model.blockio.y, 0)) {
+				var b = model.blockio;
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						blockio: _elm_lang$core$Native_Utils.update(
+							b,
+							{x: 0, y: 0, lives: model.blockio.lives - 1})
+					});
+			} else {
+				if (_elm_lang$core$Native_Utils.eq(model.blockio.x, 435) && _elm_lang$core$Native_Utils.eq(model.blockio.y, 0)) {
+					var b = model.blockio;
+					return _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							blockio: _elm_lang$core$Native_Utils.update(
+								b,
+								{x: 0, y: 0, lives: model.blockio.lives - 1})
+						});
+				} else {
+					return model;
+				}
+			}
+		}
 	}
 };
 var _user$project$Blockio$adjustX = function (model) {
