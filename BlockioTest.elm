@@ -11,7 +11,11 @@ import Text exposing(..)
 -- import Window
 
 
-
+type State =
+    NoKey
+    |Dead
+    |HasKey
+    |Win
 
 
 
@@ -24,28 +28,41 @@ main = program
 
 type Msg = KeyMsg KeyTypes | Tick Time
 type KeyTypes = KeyUp Int | KeyDown Int
-type alias Spike =
-  {
-  base : Int
-  , ht : Int
-  , x : Int
-  }
+-- type alias Spike =
+--   {
+--   base : Int
+--   , ht : Int
+--   , x : Int
+--   }
 
-initialModel = { x = 0,
-                y = 0,
+initialModel = {
                 blockio = initialBlockio,
                 key = initialKey,
-                door = initialDoor
+                door = initialDoor,
+                state = NoKey
               }
 initialBlockio = {
                 x = 0, vx = 0,
                 y = 0, vy = 0,
                 blockioAcceleration = 0,
-                hasKey = False,
                 lives = 3
                 }
-initialKey = {}
-initialDoor = {}
+initialKey = {
+    centerX = 500,
+    centerY = 0,
+    bottomCornorX = -70,
+    bottomCornorY = -70,
+    topCornorX = -70,
+    topCornorY = 70
+  }
+initialDoor = {
+  centerX = -500,
+  centerY = 0,
+  bottomCornorX = 70,
+  bottomCornorY = -70,
+  topCornorX = 70,
+  topCornorY = 70
+  }
 --door = (Svg.rect [x "0", y "0", width "25", height "25"] [])
 
 subscriptions model =
@@ -63,7 +80,8 @@ update msg model =
     KeyMsg k -> key k model
     Tick time -> tick model
 
-runSpeed = 4
+
+runSpeed = 10
 gravityS = 0.2
 jumpSpeed = 5
 
@@ -118,14 +136,23 @@ stop condition model =
 
 tick model =
     model
-        -- |>kill
-        |>spikeAirCollision
-        |>spikeGroundCollision
-        |>acceleration
+        |> kill
+        |> getKey
+        |> doorCollide
+        |> spikeAirCollision
+        |> spikeGroundCollision
+        |> acceleration
         |> gravity
         |> motion
+        |> walls
         |> floor
 -- alienHitBox model =
+
+kill model =
+  if model.blockio.lives == 0 then
+    {model | state = Dead}
+  else
+    model
 
 gravity model =
   let b = model.blockio in
@@ -148,27 +175,6 @@ floor model =
     else
        model
 
-motionX model =
-  let b = model.blockio in
-    {model | blockio = {b | x = model.blockio.x + model.blockio.vx}}
-
-motionY model =
-  let b = model.blockio in
-    {model | blockio = {b | y = model.blockio.y + model.blockio.vy}}
-
-
--- kill model =
---   if (axisAlignedBoundingBox r1 r2) then
---     {alien | alive = false}
---kill function should be very similar to floor and added to tick
-adjustY model =
-  let b = model.blockio in
-    {model | blockio = {b | y = (model.blockio.y - 255)}}
-
-adjustX model =
-  let b = model.blockio in
-  {model | blockio = { b | x = (model.blockio.x - 445)}}
-
 spikeGroundCollision model =
   -- spike 3
   if (model.blockio.x) == 500 && (model.blockio.y) == 0 then
@@ -178,7 +184,7 @@ spikeGroundCollision model =
                               lives = (model.blockio.lives - 1)}}
 
 
-            if (400 <= model.blockio.x >= 500) && ()
+            -- if (400 <= model.blockio.x >= 500) && ()
   else if (model.blockio.x) == 485 && (model.blockio.y) == 0 then
     let b = model.blockio in
       {model | blockio = { b | x = 0,
@@ -208,25 +214,39 @@ spikeAirCollision model =
                               lives = (model.blockio.lives - 1)}}
 
   else model
--- gameOver model =
---   if (model.blockio.lives) == 0 then
---     {program | view = gameOverView}
---   else
---     program
---
--- gameOverView model =
---   toHtml(
---     collage 1000 500 [(
---       (toForm (centered (fromString ("GameOver"))))
---     )]
---   )
+
+walls model =
+  if 1400 <= model.blockio.x then
+    let b = model.blockio in
+      {model | blockio = {b | x = 1400}}
+    else if -1400 >= model.blockio.x then
+      let b = model.blockio in
+        {model | blockio = {b | x = -1400}}
+        else model
+
+doorCollide model =
+  if (model.blockio.x == 0 && model.state == HasKey) then
+    {model | state = Win}
+  else
+    model
+
+getKey model =
+    if (model.blockio.x == 1400 && model.state == NoKey) then
+      {model | state = HasKey}
+    else
+      model
+
+
+
 view model =
+  if model.state == NoKey then
     toHtml(
       collage 2000 500 [(
         (moveY (model.blockio.y - 230) (moveX (model.blockio.x - 445) (filled (black ) (rect 25 25))))),
          (moveY -250 (filled (black ) (rect 2000 20))),
         -- line is created for the floor
-        -- (moveY -230 (moveX -445) )
+         (moveY -200 (moveX -950 (toForm (image 100 100 "Door.png")))),
+         (moveY -200 (moveX 950 (toForm (image 100 100 "Key.png")))),
          (rotate (degrees 330)(moveY -245 (moveX 0 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX 30 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX 60 (filled (black ) (ngon 3 15))))),
@@ -236,3 +256,35 @@ view model =
         -- adds text instructions for now
         ]
         )
+      else if model.state == HasKey then
+        toHtml(
+          collage 2000 500 [(
+            (moveY (model.blockio.y - 230) (moveX (model.blockio.x - 445) (filled (black ) (rect 25 25))))),
+             (moveY -250 (filled (black ) (rect 2000 20))),
+            -- line is created for the floor
+             (moveY -200 (moveX -950 (toForm (image 100 100 "Door.png")))),
+             (rotate (degrees 330)(moveY -245 (moveX 0 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 330)(moveY -245 (moveX 30 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 330)(moveY -245 (moveX 60 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 330)(moveY -245 (moveX 90 (filled (black ) (ngon 3 15))))),
+            -- alien is created and only moves opposite the tank for now
+             ( toForm (centered (fromString ("Press W,A,S,D to control Blockio"))))
+            -- adds text instructions for now
+            ]
+            )
+          else if model.state == Win then
+            toHtml(
+              collage 2000 500 [
+
+                 ( toForm (centered (fromString ("You Won!!! Theres nothing left"))))
+                -- adds text instructions for now
+                ]
+                )
+            else
+              toHtml(
+                collage 2000 500 [
+
+                   ( toForm (centered (fromString ("Game Over!!!"))))
+                  -- adds text instructions for now
+                  ]
+                  )
