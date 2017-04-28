@@ -119,10 +119,9 @@ stop condition model =
 tick model =
     model
         -- |>kill
-        |> gameOver
-        |> spikeAirCollision
-        |> spikeGroundCollision
-        |> acceleration
+        |>spikeAirCollision
+        |>spikeGroundCollision
+        |>acceleration
         |> gravity
         |> motion
         |> floor
@@ -171,7 +170,7 @@ adjustX model =
   {model | blockio = { b | x = (model.blockio.x - 445)}}
 
 spikeGroundCollision model =
-  if (model.blockio.x - 445) == 5 && (model.blockio.y - 270) == 10 then
+  if (model.blockio.x) == 500 && (model.blockio.y) == 0 then
     let b = model.blockio in
       {model | blockio = { b | x = 0,
                               y = 0,
@@ -187,15 +186,15 @@ spikeAirCollision model =
                               lives = (model.blockio.lives - 1)}}
 
   else model
-gameOver model =
-  if (model.blockio.lives) == 0 then
-    toHtml(
-      collage 1000 500 [(
-        (toForm (centered (fromString ("GameOver"))))
-      )]
-    )
-  else
-    model
+-- gameOver model =
+--   if (model.blockio.lives) == 0 then
+--     toHtml(
+--       collage 1000 500 [(
+--         (toForm (centered (fromString ("GameOver"))))
+--       )]
+--     )
+--   else
+--     model
 
 view model =
     toHtml(

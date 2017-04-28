@@ -114,7 +114,7 @@ var _user$project$Blockio$spikeAirCollision = function (model) {
 	}
 };
 var _user$project$Blockio$spikeGroundCollision = function (model) {
-	if (_elm_lang$core$Native_Utils.eq(model.blockio.x - 445, 5) && _elm_lang$core$Native_Utils.eq(model.blockio.y - 270, 10)) {
+	if (_elm_lang$core$Native_Utils.eq(model.blockio.x, 500) && _elm_lang$core$Native_Utils.eq(model.blockio.y, 0)) {
 		var b = model.blockio;
 		return _elm_lang$core$Native_Utils.update(
 			model,
