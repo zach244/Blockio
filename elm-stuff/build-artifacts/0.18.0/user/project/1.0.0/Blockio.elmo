@@ -78,7 +78,18 @@ var _user$project$Blockio$spikeGroundCollision = function (model) {
 								{x: 0, y: 0, lives: model.blockio.lives - 1})
 						});
 				} else {
-					return model;
+					if (_elm_lang$core$Native_Utils.eq(model.blockio.x, 550) && _elm_lang$core$Native_Utils.eq(model.blockio.y, 0)) {
+						var b = model.blockio;
+						return _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								blockio: _elm_lang$core$Native_Utils.update(
+									b,
+									{x: 0, y: 0, lives: model.blockio.lives - 1})
+							});
+					} else {
+						return model;
+					}
 				}
 			}
 		}
@@ -384,10 +395,26 @@ var _user$project$Blockio$view = function (model) {
 															A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
 											_1: {
 												ctor: '::',
-												_0: _evancz$elm_graphics$Collage$toForm(
-													_evancz$elm_graphics$Element$centered(
-														_evancz$elm_graphics$Text$fromString('Press W,A,S,D to control Blockio'))),
-												_1: {ctor: '[]'}
+												_0: A2(
+													_evancz$elm_graphics$Collage$rotate,
+													_elm_lang$core$Basics$degrees(330),
+													A2(
+														_evancz$elm_graphics$Collage$moveY,
+														-245,
+														A2(
+															_evancz$elm_graphics$Collage$moveX,
+															420,
+															A2(
+																_evancz$elm_graphics$Collage$filled,
+																_elm_lang$core$Color$black,
+																A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+												_1: {
+													ctor: '::',
+													_0: _evancz$elm_graphics$Collage$toForm(
+														_evancz$elm_graphics$Element$centered(
+															_evancz$elm_graphics$Text$fromString('Press W,A,S,D to control Blockio'))),
+													_1: {ctor: '[]'}
+												}
 											}
 										}
 									}
@@ -494,10 +521,26 @@ var _user$project$Blockio$view = function (model) {
 														A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
 										_1: {
 											ctor: '::',
-											_0: _evancz$elm_graphics$Collage$toForm(
-												_evancz$elm_graphics$Element$centered(
-													_evancz$elm_graphics$Text$fromString('Press W,A,S,D to control Blockio'))),
-											_1: {ctor: '[]'}
+											_0: A2(
+												_evancz$elm_graphics$Collage$rotate,
+												_elm_lang$core$Basics$degrees(330),
+												A2(
+													_evancz$elm_graphics$Collage$moveY,
+													-245,
+													A2(
+														_evancz$elm_graphics$Collage$moveX,
+														420,
+														A2(
+															_evancz$elm_graphics$Collage$filled,
+															_elm_lang$core$Color$black,
+															A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+											_1: {
+												ctor: '::',
+												_0: _evancz$elm_graphics$Collage$toForm(
+													_evancz$elm_graphics$Element$centered(
+														_evancz$elm_graphics$Text$fromString('Press W,A,S,D to control Blockio'))),
+												_1: {ctor: '[]'}
+											}
 										}
 									}
 								}

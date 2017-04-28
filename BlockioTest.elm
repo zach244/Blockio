@@ -203,11 +203,17 @@ spikeGroundCollision model =
       {model | blockio = { b | x = 0,
                               y = 0,
                               lives = (model.blockio.lives - 1)}}
+
+   else if (model.blockio.x) == 550 && (model.blockio.y) == 0 then
+       let b = model.blockio in
+         {model | blockio = { b | x = 0,
+                                 y = 0,
+                                 lives = (model.blockio.lives - 1)}}
   else
     model
 
 spikeAirCollision model =
-  if (model.blockio.x - 445) == 5 && (model.blockio.y - 255) == 5 then
+  if (model.blockio.x - 445) == 5 && (model.blockio.y - 255) == 5 then --this does collision for the spikes
     let b = model.blockio in
       {model | blockio = { b | x = 0,
                               y = 0,
@@ -249,8 +255,9 @@ view model =
          (moveY -200 (moveX 950 (toForm (image 100 100 "Key.png")))),
          (rotate (degrees 330)(moveY -245 (moveX 0 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX 30 (filled (black ) (ngon 3 15))))),
-         (rotate (degrees 330)(moveY -245 (moveX 60 (filled (black ) (ngon 3 15))))),
+         (rotate (degrees 330)(moveY -245 (moveX 60 (filled (black ) (ngon 3 15))))), --this creates the spikes
          (rotate (degrees 330)(moveY -245 (moveX 90 (filled (black ) (ngon 3 15))))),
+         (rotate (degrees 330)(moveY -245 (moveX 420 (filled (black ) (ngon 3 15))))),
         -- alien is created and only moves opposite the tank for now
          ( toForm (centered (fromString ("Press W,A,S,D to control Blockio"))))
         -- adds text instructions for now
@@ -267,6 +274,7 @@ view model =
              (rotate (degrees 330)(moveY -245 (moveX 30 (filled (black ) (ngon 3 15))))),
              (rotate (degrees 330)(moveY -245 (moveX 60 (filled (black ) (ngon 3 15))))),
              (rotate (degrees 330)(moveY -245 (moveX 90 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 330)(moveY -245 (moveX 420 (filled (black ) (ngon 3 15))))),
             -- alien is created and only moves opposite the tank for now
              ( toForm (centered (fromString ("Press W,A,S,D to control Blockio"))))
             -- adds text instructions for now
