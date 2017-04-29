@@ -1,123 +1,187 @@
-var _user$project$Blockio$view = function (model) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$svg$Svg_Attributes$width('100%'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$height('100%'),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 500 100'),
-					_1: {ctor: '[]'}
+var _user$project$Blockio$walls = function (model) {
+	if (_elm_lang$core$Native_Utils.cmp(1400, model.blockio.x) < 1) {
+		var b = model.blockio;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{x: 1400})
+			});
+	} else {
+		if (_elm_lang$core$Native_Utils.cmp(-1400, model.blockio.x) > -1) {
+			var b = model.blockio;
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					blockio: _elm_lang$core$Native_Utils.update(
+						b,
+						{x: -1400})
+				});
+		} else {
+			return model;
+		}
+	}
+};
+var _user$project$Blockio$spikeAirCollision = function (model) {
+	if (_elm_lang$core$Native_Utils.eq(model.blockio.x - 445, 5) && _elm_lang$core$Native_Utils.eq(model.blockio.y - 255, 5)) {
+		var b = model.blockio;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{x: 0, y: 0, lives: model.blockio.lives - 1})
+			});
+	} else {
+		return model;
+	}
+};
+var _user$project$Blockio$spikeGroundCollision = function (model) {
+	if (_elm_lang$core$Native_Utils.eq(model.blockio.x, 500) && _elm_lang$core$Native_Utils.eq(model.blockio.y, 0)) {
+		var b = model.blockio;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{x: 0, y: 0, lives: model.blockio.lives - 1})
+			});
+	} else {
+		if (_elm_lang$core$Native_Utils.eq(model.blockio.x, 485) && _elm_lang$core$Native_Utils.eq(model.blockio.y, 0)) {
+			var b = model.blockio;
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					blockio: _elm_lang$core$Native_Utils.update(
+						b,
+						{x: 0, y: 0, lives: model.blockio.lives - 1})
+				});
+		} else {
+			if (_elm_lang$core$Native_Utils.eq(model.blockio.x, 450) && _elm_lang$core$Native_Utils.eq(model.blockio.y, 0)) {
+				var b = model.blockio;
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						blockio: _elm_lang$core$Native_Utils.update(
+							b,
+							{x: 0, y: 0, lives: model.blockio.lives - 1})
+					});
+			} else {
+				if (_elm_lang$core$Native_Utils.eq(model.blockio.x, 435) && _elm_lang$core$Native_Utils.eq(model.blockio.y, 0)) {
+					var b = model.blockio;
+					return _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							blockio: _elm_lang$core$Native_Utils.update(
+								b,
+								{x: 0, y: 0, lives: model.blockio.lives - 1})
+						});
+				} else {
+					return model;
 				}
 			}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$svg$Svg$rect,
-				{
-					ctor: '::',
-					_0: _elm_lang$svg$Svg_Attributes$x(
-						_elm_lang$core$Basics$toString(model.x)),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$y(
-							_elm_lang$core$Basics$toString(model.y + 40)),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$width('50'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$height('50'),
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				},
-				{ctor: '[]'}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$svg$Svg$line,
-					{
-						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$x1('0'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$y1('95'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$x2('500'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$y2('95'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$strokeWidth('8'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							}
-						}
-					},
-					{ctor: '[]'}),
-				_1: {ctor: '[]'}
-			}
-		});
+		}
+	}
 };
 var _user$project$Blockio$floor = function (model) {
-	return (_elm_lang$core$Native_Utils.cmp(model.y, 0) < 0) ? _elm_lang$core$Native_Utils.update(
-		model,
-		{y: 0, vy: 0}) : model;
+	if (_elm_lang$core$Native_Utils.cmp(model.blockio.y, 0) < 0) {
+		var b = model.blockio;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{y: 0, vy: 0})
+			});
+	} else {
+		return model;
+	}
 };
-var _user$project$Blockio$motion = function (model) {
+var _user$project$Blockio$acceleration = function (model) {
+	var b = model.blockio;
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{x: model.x + model.vx, y: model.y + model.vy});
+		{
+			blockio: _elm_lang$core$Native_Utils.update(
+				b,
+				{vx: model.blockio.blockioAcceleration})
+		});
+};
+var _user$project$Blockio$motion = function (model) {
+	var b = model.blockio;
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			blockio: _elm_lang$core$Native_Utils.update(
+				b,
+				{x: model.blockio.x + model.blockio.vx, y: model.blockio.y + model.blockio.vy})
+		});
 };
 var _user$project$Blockio$stop = F2(
 	function (condition, model) {
-		return A2(condition, model.blockioAcceleration, 0) ? _elm_lang$core$Native_Utils.update(
-			model,
-			{blockioAcceleration: 0}) : model;
+		if (A2(condition, model.blockio.blockioAcceleration, 0)) {
+			var b = model.blockio;
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					blockio: _elm_lang$core$Native_Utils.update(
+						b,
+						{blockioAcceleration: 0})
+				});
+		} else {
+			return model;
+		}
 	});
 var _user$project$Blockio$fastFall = F2(
 	function (moveSpeed, model) {
+		var b = model.blockio;
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{blockioAcceleration: moveSpeed});
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{vy: model.blockio.vy - moveSpeed})
+			});
 	});
 var _user$project$Blockio$run = F2(
 	function (moveSpeed, model) {
+		var b = model.blockio;
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{blockioAcceleration: moveSpeed});
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{blockioAcceleration: moveSpeed})
+			});
 	});
 var _user$project$Blockio$jumpSpeed = 5;
 var _user$project$Blockio$jump = function (model) {
-	return _elm_lang$core$Native_Utils.eq(model.vy, 0) ? _elm_lang$core$Native_Utils.update(
-		model,
-		{vy: _user$project$Blockio$jumpSpeed}) : model;
+	if (_elm_lang$core$Native_Utils.eq(model.blockio.vy, 0)) {
+		var b = model.blockio;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				blockio: _elm_lang$core$Native_Utils.update(
+					b,
+					{vy: _user$project$Blockio$jumpSpeed})
+			});
+	} else {
+		return model;
+	}
 };
 var _user$project$Blockio$gravityS = 0.2;
 var _user$project$Blockio$gravity = function (model) {
+	var b = model.blockio;
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{vy: model.vy - _user$project$Blockio$gravityS});
+		{
+			blockio: _elm_lang$core$Native_Utils.update(
+				b,
+				{vy: model.blockio.vy - _user$project$Blockio$gravityS})
+		});
 };
-var _user$project$Blockio$tick = function (model) {
-	return _user$project$Blockio$floor(
-		_user$project$Blockio$motion(
-			_user$project$Blockio$gravity(model)));
-};
-var _user$project$Blockio$runSpeed = 4;
+var _user$project$Blockio$runSpeed = 10;
 var _user$project$Blockio$key = F2(
 	function (msg, model) {
 		return function () {
@@ -159,6 +223,41 @@ var _user$project$Blockio$key = F2(
 			return _elm_lang$core$Basics$identity;
 		}()(model);
 	});
+var _user$project$Blockio$initialDoor = {centerX: -500, centerY: 0, bottomCornorX: 70, bottomCornorY: -70, topCornorX: 70, topCornorY: 70};
+var _user$project$Blockio$initialKey = {centerX: 500, centerY: 0, bottomCornorX: -70, bottomCornorY: -70, topCornorX: -70, topCornorY: 70};
+var _user$project$Blockio$initialBlockio = {x: 0, vx: 0, y: 0, vy: 0, blockioAcceleration: 0, lives: 3};
+var _user$project$Blockio$Win = {ctor: 'Win'};
+var _user$project$Blockio$HasKey = {ctor: 'HasKey'};
+var _user$project$Blockio$doorCollide = function (model) {
+	return (_elm_lang$core$Native_Utils.eq(model.blockio.x, 0) && _elm_lang$core$Native_Utils.eq(model.state, _user$project$Blockio$HasKey)) ? _elm_lang$core$Native_Utils.update(
+		model,
+		{state: _user$project$Blockio$Win}) : model;
+};
+var _user$project$Blockio$Dead = {ctor: 'Dead'};
+var _user$project$Blockio$kill = function (model) {
+	return _elm_lang$core$Native_Utils.eq(model.blockio.lives, 0) ? _elm_lang$core$Native_Utils.update(
+		model,
+		{state: _user$project$Blockio$Dead}) : model;
+};
+var _user$project$Blockio$NoKey = {ctor: 'NoKey'};
+var _user$project$Blockio$initialModel = {blockio: _user$project$Blockio$initialBlockio, key: _user$project$Blockio$initialKey, door: _user$project$Blockio$initialDoor, state: _user$project$Blockio$NoKey};
+var _user$project$Blockio$getKey = function (model) {
+	return (_elm_lang$core$Native_Utils.eq(model.blockio.x, 1400) && _elm_lang$core$Native_Utils.eq(model.state, _user$project$Blockio$NoKey)) ? _elm_lang$core$Native_Utils.update(
+		model,
+		{state: _user$project$Blockio$HasKey}) : model;
+};
+var _user$project$Blockio$tick = function (model) {
+	return _user$project$Blockio$floor(
+		_user$project$Blockio$walls(
+			_user$project$Blockio$motion(
+				_user$project$Blockio$gravity(
+					_user$project$Blockio$acceleration(
+						_user$project$Blockio$spikeGroundCollision(
+							_user$project$Blockio$spikeAirCollision(
+								_user$project$Blockio$doorCollide(
+									_user$project$Blockio$getKey(
+										_user$project$Blockio$kill(model))))))))));
+};
 var _user$project$Blockio$update = F2(
 	function (msg, model) {
 		var _p1 = msg;
@@ -176,7 +275,260 @@ var _user$project$Blockio$updateWithCommand = F2(
 			_1: _elm_lang$core$Platform_Cmd$none
 		};
 	});
-var _user$project$Blockio$initialModel = {x: 0, vx: 0, y: 0, vy: 0, blockioAcceleration: 0};
+var _user$project$Blockio$view = function (model) {
+	return _elm_lang$core$Native_Utils.eq(model.state, _user$project$Blockio$NoKey) ? _evancz$elm_graphics$Element$toHtml(
+		A3(
+			_evancz$elm_graphics$Collage$collage,
+			2000,
+			500,
+			{
+				ctor: '::',
+				_0: A2(
+					_evancz$elm_graphics$Collage$moveY,
+					model.blockio.y - 230,
+					A2(
+						_evancz$elm_graphics$Collage$moveX,
+						model.blockio.x - 445,
+						A2(
+							_evancz$elm_graphics$Collage$filled,
+							_elm_lang$core$Color$black,
+							A2(_evancz$elm_graphics$Collage$rect, 25, 25)))),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_evancz$elm_graphics$Collage$moveY,
+						-250,
+						A2(
+							_evancz$elm_graphics$Collage$filled,
+							_elm_lang$core$Color$black,
+							A2(_evancz$elm_graphics$Collage$rect, 2000, 20))),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_evancz$elm_graphics$Collage$moveY,
+							-200,
+							A2(
+								_evancz$elm_graphics$Collage$moveX,
+								-950,
+								_evancz$elm_graphics$Collage$toForm(
+									A3(_evancz$elm_graphics$Element$image, 100, 100, 'Door.png')))),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_evancz$elm_graphics$Collage$moveY,
+								-200,
+								A2(
+									_evancz$elm_graphics$Collage$moveX,
+									950,
+									_evancz$elm_graphics$Collage$toForm(
+										A3(_evancz$elm_graphics$Element$image, 100, 100, 'Key.png')))),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_evancz$elm_graphics$Collage$rotate,
+									_elm_lang$core$Basics$degrees(330),
+									A2(
+										_evancz$elm_graphics$Collage$moveY,
+										-245,
+										A2(
+											_evancz$elm_graphics$Collage$moveX,
+											0,
+											A2(
+												_evancz$elm_graphics$Collage$filled,
+												_elm_lang$core$Color$black,
+												A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_evancz$elm_graphics$Collage$rotate,
+										_elm_lang$core$Basics$degrees(330),
+										A2(
+											_evancz$elm_graphics$Collage$moveY,
+											-245,
+											A2(
+												_evancz$elm_graphics$Collage$moveX,
+												30,
+												A2(
+													_evancz$elm_graphics$Collage$filled,
+													_elm_lang$core$Color$black,
+													A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_evancz$elm_graphics$Collage$rotate,
+											_elm_lang$core$Basics$degrees(330),
+											A2(
+												_evancz$elm_graphics$Collage$moveY,
+												-245,
+												A2(
+													_evancz$elm_graphics$Collage$moveX,
+													60,
+													A2(
+														_evancz$elm_graphics$Collage$filled,
+														_elm_lang$core$Color$black,
+														A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_evancz$elm_graphics$Collage$rotate,
+												_elm_lang$core$Basics$degrees(330),
+												A2(
+													_evancz$elm_graphics$Collage$moveY,
+													-245,
+													A2(
+														_evancz$elm_graphics$Collage$moveX,
+														90,
+														A2(
+															_evancz$elm_graphics$Collage$filled,
+															_elm_lang$core$Color$black,
+															A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+											_1: {
+												ctor: '::',
+												_0: _evancz$elm_graphics$Collage$toForm(
+													_evancz$elm_graphics$Element$centered(
+														_evancz$elm_graphics$Text$fromString('Press W,A,S,D to control Blockio'))),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			})) : (_elm_lang$core$Native_Utils.eq(model.state, _user$project$Blockio$HasKey) ? _evancz$elm_graphics$Element$toHtml(
+		A3(
+			_evancz$elm_graphics$Collage$collage,
+			2000,
+			500,
+			{
+				ctor: '::',
+				_0: A2(
+					_evancz$elm_graphics$Collage$moveY,
+					model.blockio.y - 230,
+					A2(
+						_evancz$elm_graphics$Collage$moveX,
+						model.blockio.x - 445,
+						A2(
+							_evancz$elm_graphics$Collage$filled,
+							_elm_lang$core$Color$black,
+							A2(_evancz$elm_graphics$Collage$rect, 25, 25)))),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_evancz$elm_graphics$Collage$moveY,
+						-250,
+						A2(
+							_evancz$elm_graphics$Collage$filled,
+							_elm_lang$core$Color$black,
+							A2(_evancz$elm_graphics$Collage$rect, 2000, 20))),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_evancz$elm_graphics$Collage$moveY,
+							-200,
+							A2(
+								_evancz$elm_graphics$Collage$moveX,
+								-950,
+								_evancz$elm_graphics$Collage$toForm(
+									A3(_evancz$elm_graphics$Element$image, 100, 100, 'Door.png')))),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_evancz$elm_graphics$Collage$rotate,
+								_elm_lang$core$Basics$degrees(330),
+								A2(
+									_evancz$elm_graphics$Collage$moveY,
+									-245,
+									A2(
+										_evancz$elm_graphics$Collage$moveX,
+										0,
+										A2(
+											_evancz$elm_graphics$Collage$filled,
+											_elm_lang$core$Color$black,
+											A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_evancz$elm_graphics$Collage$rotate,
+									_elm_lang$core$Basics$degrees(330),
+									A2(
+										_evancz$elm_graphics$Collage$moveY,
+										-245,
+										A2(
+											_evancz$elm_graphics$Collage$moveX,
+											30,
+											A2(
+												_evancz$elm_graphics$Collage$filled,
+												_elm_lang$core$Color$black,
+												A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_evancz$elm_graphics$Collage$rotate,
+										_elm_lang$core$Basics$degrees(330),
+										A2(
+											_evancz$elm_graphics$Collage$moveY,
+											-245,
+											A2(
+												_evancz$elm_graphics$Collage$moveX,
+												60,
+												A2(
+													_evancz$elm_graphics$Collage$filled,
+													_elm_lang$core$Color$black,
+													A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_evancz$elm_graphics$Collage$rotate,
+											_elm_lang$core$Basics$degrees(330),
+											A2(
+												_evancz$elm_graphics$Collage$moveY,
+												-245,
+												A2(
+													_evancz$elm_graphics$Collage$moveX,
+													90,
+													A2(
+														_evancz$elm_graphics$Collage$filled,
+														_elm_lang$core$Color$black,
+														A2(_evancz$elm_graphics$Collage$ngon, 3, 15))))),
+										_1: {
+											ctor: '::',
+											_0: _evancz$elm_graphics$Collage$toForm(
+												_evancz$elm_graphics$Element$centered(
+													_evancz$elm_graphics$Text$fromString('Press W,A,S,D to control Blockio'))),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			})) : (_elm_lang$core$Native_Utils.eq(model.state, _user$project$Blockio$Win) ? _evancz$elm_graphics$Element$toHtml(
+		A3(
+			_evancz$elm_graphics$Collage$collage,
+			2000,
+			500,
+			{
+				ctor: '::',
+				_0: _evancz$elm_graphics$Collage$toForm(
+					_evancz$elm_graphics$Element$centered(
+						_evancz$elm_graphics$Text$fromString('You Won!!! Theres nothing left'))),
+				_1: {ctor: '[]'}
+			})) : _evancz$elm_graphics$Element$toHtml(
+		A3(
+			_evancz$elm_graphics$Collage$collage,
+			2000,
+			500,
+			{
+				ctor: '::',
+				_0: _evancz$elm_graphics$Collage$toForm(
+					_evancz$elm_graphics$Element$centered(
+						_evancz$elm_graphics$Text$fromString('Game Over!!!'))),
+				_1: {ctor: '[]'}
+			}))));
+};
 var _user$project$Blockio$Tick = function (a) {
 	return {ctor: 'Tick', _0: a};
 };
