@@ -7,6 +7,7 @@ import Svg exposing (..)
 import Svg.Attributes exposing (..)
 import Collision2D
 
+      ]
 
 
 main = program
