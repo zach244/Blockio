@@ -203,11 +203,7 @@ spikeGroundCollision model = --added range for spike collision
       {model | blockio = { b | x = 0,
                               y = 0,
                               lives = (model.blockio.lives - 1)}}
-   else if (model.blockio.x) >= 550 && (model.blockio.x) <= 580 && (model.blockio.y) == 0 then
-        let b = model.blockio in
-          {model | blockio = { b | x = 0,
-                                  y = 0,
-                                  lives = (model.blockio.lives - 1)}}
+
     else if (model.blockio.x) >= 100 && (model.blockio.x) <= 130 && (model.blockio.y) == 0 then
             let b = model.blockio in
               {model | blockio = { b | x = 0,
@@ -228,6 +224,42 @@ spikeGroundCollision model = --added range for spike collision
                    {model | blockio = { b | x = 0,
                                            y = 0,
                                            lives = (model.blockio.lives - 1)}}
+      else if (model.blockio.x) >= 930 && (model.blockio.x) <= 960 && (model.blockio.y) == 0 then
+                       let b = model.blockio in
+                         {model | blockio = { b | x = 0,
+                                                 y = 0,
+                                                lives = (model.blockio.lives - 1)}}
+       else if (model.blockio.x) >= 960 && (model.blockio.x) <= 990 && (model.blockio.y) == 0 then
+                        let b = model.blockio in
+                          {model | blockio = { b | x = 0,
+                                                  y = 0,
+                                                  lives = (model.blockio.lives - 1)}}
+        else if (model.blockio.x) >= 990 && (model.blockio.x) <= 1020 && (model.blockio.y) == 0 then
+                         let b = model.blockio in
+                           {model | blockio = { b | x = 0,
+                                                   y = 0,
+                                                   lives = (model.blockio.lives - 1)}}
+         else if (model.blockio.x) >= 1020 && (model.blockio.x) <= 1050 && (model.blockio.y) == 0 then
+                          let b = model.blockio in
+                            {model | blockio = { b | x = 0,
+                                                    y = 0,
+                                                    lives = (model.blockio.lives - 1)}}
+           else if (model.blockio.x) >= 100 && (model.blockio.x) <= 130 && (model.blockio.y) >= 55 then
+                      let b = model.blockio in
+                        {model | blockio = { b | x = 0,
+                                                y = 0,
+                                                lives = (model.blockio.lives - 1)}}
+           else if (model.blockio.x) >= 520 && (model.blockio.x) <= 550 && (model.blockio.y) >= 55 then
+                 let b = model.blockio in
+                   {model | blockio = { b | x = 0,
+                                           y = 0,
+                                           lives = (model.blockio.lives - 1)}}
+
+            else if (model.blockio.x) >= 990 && (model.blockio.x) <= 1020 && (model.blockio.y) >= 55 then
+                                     let b = model.blockio in
+                                       {model | blockio = { b | x = 0,
+                                                               y = 0,
+                                                               lives = (model.blockio.lives - 1)}}
   else
     model
 
@@ -276,11 +308,17 @@ view model =
          (rotate (degrees 330)(moveY -245 (moveX 30 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX 60 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX 90 (filled (black ) (ngon 3 15))))),
-         (rotate (degrees 330)(moveY -245 (moveX 120 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX -330 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX -300 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX -270 (filled (black ) (ngon 3 15))))),
          (rotate (degrees 330)(moveY -245 (moveX -240 (filled (black ) (ngon 3 15))))),
+         (rotate (degrees 330)(moveY -245 (moveX  500 (filled (black ) (ngon 3 15))))),
+         (rotate (degrees 330)(moveY -245 (moveX  530 (filled (black ) (ngon 3 15))))),
+         (rotate (degrees 330)(moveY -245 (moveX  560 (filled (black ) (ngon 3 15))))),
+         (rotate (degrees 330)(moveY -245 (moveX  590 (filled (black ) (ngon 3 15))))),
+          (rotate (degrees 270)(moveY -150 (moveX  -330 (filled (black ) (ngon 3 15))))),
+          (rotate (degrees 270)(moveY -150 (moveX  90 (filled (black ) (ngon 3 15))))),
+          (rotate (degrees 270)(moveY -150 (moveX  560 (filled (black ) (ngon 3 15))))),
         -- alien is created and only moves opposite the tank for now
          ( toForm (centered (fromString ("Press W,A,S,D to control Blockio"))))
         -- adds text instructions for now
@@ -297,11 +335,17 @@ view model =
              (rotate (degrees 330)(moveY -245 (moveX 30 (filled (black ) (ngon 3 15))))),
              (rotate (degrees 330)(moveY -245 (moveX 60 (filled (black ) (ngon 3 15))))),
              (rotate (degrees 330)(moveY -245 (moveX 90 (filled (black ) (ngon 3 15))))),
-             (rotate (degrees 330)(moveY -245 (moveX 120 (filled (black ) (ngon 3 15))))),
              (rotate (degrees 330)(moveY -245 (moveX -330 (filled (black ) (ngon 3 15))))),
              (rotate (degrees 330)(moveY -245 (moveX -300 (filled (black ) (ngon 3 15))))),
              (rotate (degrees 330)(moveY -245 (moveX -270 (filled (black ) (ngon 3 15))))),
              (rotate (degrees 330)(moveY -245 (moveX -240 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 330)(moveY -245 (moveX  500 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 330)(moveY -245 (moveX  530 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 330)(moveY -245 (moveX  560 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 330)(moveY -245 (moveX  590 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 270)(moveY -150 (moveX  -330 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 270)(moveY -150 (moveX  90 (filled (black ) (ngon 3 15))))),
+             (rotate (degrees 270)(moveY -150 (moveX  560 (filled (black ) (ngon 3 15))))),
             -- alien is created and only moves opposite the tank for now
              ( toForm (centered (fromString ("Press W,A,S,D to control Blockio"))))
             -- adds text instructions for now
